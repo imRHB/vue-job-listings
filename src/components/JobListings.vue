@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import jobLists from "../assets/data.json";
+import jobLists from "../../public/data.json";
 import JobItem from "./JobItem.vue";
 
 export default {

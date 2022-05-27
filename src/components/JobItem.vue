@@ -10,8 +10,48 @@
           <span class="company">{{ job.company }}</span>
           <small><span></span></small>
         </div>
-        <div></div>
-        <div class="type"></div>
+        <div>
+          <span class="position">{{ job.position }}</span>
+        </div>
+        <div class="type">
+          {{ job.postedAt }}
+          <span
+            style="
+               {
+                fontsize: 4px;
+                margin: 0px 6px;
+              }
+            "
+          >
+            -
+          </span>
+          {{ job.contract }}
+          <span
+            style="
+               {
+                fontsize: 4px;
+                margin: 0px 6px;
+              }
+            "
+          >
+            -
+          </span>
+          {{ job.location }}
+        </div>
+      </div>
+
+      <div class="hr-line">
+        <!-- horizontal line -->
+      </div>
+      <div class="skills">
+        <p
+          class="skill"
+          v-for="tag in job.languages"
+          :key="tag"
+          @click="addFilterTag(tag)"
+        >
+          {{ tag }}
+        </p>
       </div>
     </div>
   </div>
@@ -21,6 +61,18 @@
 export default {
   props: {
     job: Object,
+  },
+
+  data() {
+    return {
+      skills: [],
+    };
+  },
+
+  methods: {
+    addFilterTag(tag) {
+      this.skills.push(tag);
+    },
   },
 };
 </script>
@@ -70,7 +122,7 @@ export default {
   color: hsl(180, 29%, 50%);
 }
 
-.newJob,
+.new-job,
 .featured {
   padding: 4px 8px;
   border-radius: 16px;
@@ -101,7 +153,7 @@ export default {
   align-items: center;
 }
 
-.hrLine {
+.hr-line {
   width: 100%;
   border-top: 2px solid hsl(180, 29%, 50%);
   display: none;
@@ -155,7 +207,7 @@ export default {
     margin-left: 0px;
   }
 
-  .hrLine {
+  .hr-line {
     display: block;
   }
 }

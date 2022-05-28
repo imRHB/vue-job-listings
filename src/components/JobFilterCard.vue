@@ -1,35 +1,46 @@
 <template>
-  <div class="container">
-    <div class="job-filter-card">
-      <div class="filtered-items"></div>
-
-      <div class="filter-alt">Click on the skill item to filter jobs</div>
-
-      <div class="clear">Clear</div>
+  <div class="job-filter-card">
+    <div class="filtered-items">
+      <div class="item-card" v-for="(tag, idx) in tags" :key="idx">
+        <div class="item">{{ tag }}</div>
+        <div class="close" @click="filter(tag)">X</div>
+      </div>
     </div>
+
+    <div class="filter-alt" v-show="tags.length === 0">
+      Click on the skill item to filter jobs
+    </div>
+
+    <div class="clear" @click="clear()" v-show="tags.length !== 0">Clear</div>
   </div>
 </template>
 
-<script>
-export default {};
+<script >
+export default {
+  props: {
+    tags: Array,
+  },
+
+  methods: {
+    filter: function (tag) {
+      this.$emit("clicked", tag);
+    },
+
+    clear: function () {
+      this.$emit("clicked", "clearTags");
+    },
+  },
+};
 </script>
 
 <style scoped>
-.container {
-  margin: 0 4em;
-}
-
-.header img {
-  width: 100%;
-  height: auto;
-}
-
 .job-filter-card {
   margin: 40px 0;
   margin-top: -40px;
   padding: 32px 24px;
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
   align-items: center;
   background: #fff;
   box-shadow: 0 0 24px 1px rgba(0, 0, 0, 0.08);
@@ -54,6 +65,29 @@ export default {};
 .clear:hover {
   cursor: pointer;
   text-decoration: underline;
+}
+
+.item-card {
+  display: flex;
+}
+
+.item {
+  padding: 8px;
+  color: hsl(180, 29%, 50%);
+  background-color: hsl(180, 31%, 95%);
+  border-radius: 3px 0 0 3px;
+}
+
+.close {
+  padding: 8px 12px;
+  color: hsl(180, 31%, 95%);
+  background-color: hsl(180, 29%, 50%);
+  border-radius: 0 3px 3px 0;
+  cursor: pointer;
+}
+
+.close:hover {
+  background-color: hsl(180, 14%, 20%);
 }
 
 @media only screen and (max-width: 375px),

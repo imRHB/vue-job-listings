@@ -1,16 +1,16 @@
 <template>
   <header-item />
-  <job-filter-card />
+  <!-- <job-filter-card /> -->
   <job-listings />
 </template>
 
 <script>
 import HeaderItem from "./HeaderItem.vue";
-import JobFilterCard from "./JobFilterCard.vue";
+// import JobFilterCard from "./JobFilterCard.vue";
 import JobListings from "./JobListings.vue";
 
 export default {
-  components: { JobListings, JobFilterCard, HeaderItem },
+  components: { JobListings, HeaderItem },
 };
 </script>
 

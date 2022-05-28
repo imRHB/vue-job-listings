@@ -8,7 +8,8 @@
       <div class="job-details">
         <div class="posting-details">
           <span class="company">{{ job.company }}</span>
-          <small><span></span></small>
+          <small><span class=""></span></small>
+          <small><span class=""></span></small>
         </div>
         <div>
           <span class="position">{{ job.position }}</span>
@@ -43,14 +44,25 @@
       <div class="hr-line">
         <!-- horizontal line -->
       </div>
+
       <div class="skills">
+        <p class="skill" @click="filter(job.role)">{{ job.role }}</p>
+        <p class="skill" @click="filter(job.level)">{{ job.level }}</p>
         <p
           class="skill"
-          v-for="tag in job.languages"
-          :key="tag"
-          @click="addFilterTag(tag)"
+          v-for="(language, idx) in job.languages"
+          :key="idx"
+          @click="filter(language)"
         >
-          {{ tag }}
+          {{ language }}
+        </p>
+        <p
+          class="skill"
+          v-for="(tool, idx) in job.tools"
+          :key="idx"
+          @click="filter(tool)"
+        >
+          {{ tool }}
         </p>
       </div>
     </div>
@@ -59,19 +71,15 @@
 
 <script>
 export default {
+  components: {},
+
   props: {
     job: Object,
   },
 
-  data() {
-    return {
-      skills: [],
-    };
-  },
-
   methods: {
-    addFilterTag(tag) {
-      this.skills.push(tag);
+    filter: function (tag) {
+      this.$emit("clicked", tag);
     },
   },
 };

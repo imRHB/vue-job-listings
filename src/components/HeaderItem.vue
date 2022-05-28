@@ -11,10 +11,6 @@ export default {};
 </script>
 
 <style scoped>
-.container {
-  /* min-height: 100vh; */
-}
-
 .header-bg {
   background: url("../../public/images/bg-header-desktop.svg"),
     hsl(180, 8%, 52%);

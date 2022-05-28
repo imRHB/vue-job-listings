@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="header-bg">
-      <!-- background image goes here -->
+      <!-- background header image goes here -->
     </div>
   </div>
 </template>

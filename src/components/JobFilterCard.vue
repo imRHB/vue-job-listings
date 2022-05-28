@@ -7,9 +7,9 @@
       </div>
     </div>
 
-    <div class="filter-alt" v-show="tags.length === 0">
+    <span class="filter-alt" v-show="tags.length === 0">
       Click on the skill item to filter jobs
-    </div>
+    </span>
 
     <div class="clear" @click="clear()" v-show="tags.length !== 0">Clear</div>
   </div>

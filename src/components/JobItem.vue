@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div :class="job.new && job.featured ? 'card card-special' : 'card'">
     <div class="logo">
       <img :src="job.logo" alt="logo" />
     </div>
@@ -8,8 +8,16 @@
       <div class="job-details">
         <div class="posting-details">
           <span class="company">{{ job.company }}</span>
-          <small><span class=""></span></small>
-          <small><span class=""></span></small>
+          <small
+            ><span :class="job.new ? 'new-job' : ' '">{{
+              job.new ? "NEW" : ""
+            }}</span></small
+          >
+          <small
+            ><span :class="job.featured ? 'featured' : ' '">{{
+              job.featured ? "FEATURED" : ""
+            }}</span></small
+          >
         </div>
         <div>
           <span class="position">{{ job.position }}</span>
@@ -93,14 +101,17 @@ export default {
   margin: 40px 0;
   padding: 24px;
   background-color: #fff;
-  box-shadow: 0 0 24px 1px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 18px 0px rgba(0, 0, 0, 0.08);
   border-radius: 4px;
   transition: 0.4s;
 }
 
-.card:hover {
+.card-special {
   border-left: 4px solid hsl(180, 8%, 52%);
-  box-shadow: 0 0 32px 1px rgba(0, 0, 0, 0.12);
+}
+
+.card:hover {
+  box-shadow: 0 4px 20px 2px rgba(0, 0, 0, 0.12);
 }
 
 .logo img {
@@ -132,12 +143,13 @@ export default {
 
 .new-job,
 .featured {
+  font-size: 11px;
   padding: 4px 8px;
   border-radius: 16px;
   color: hsl(180, 31%, 95%);
 }
 
-.newJob {
+.new-job {
   background-color: hsl(180, 29%, 50%);
 }
 

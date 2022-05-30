@@ -1,13 +1,12 @@
 <template>
-  <div class="container">
+  <div>
     <div class="header-bg">
       <!-- background header image goes here -->
     </div>
   </div>
 </template>
 
-<script>
-export default {};
+<script setup>
 </script>
 
 <style scoped>

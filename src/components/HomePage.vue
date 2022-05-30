@@ -1,15 +1,11 @@
 <template>
-  <header-item class="code" />
-  <job-listings class="code" />
+  <HeaderItem />
+  <JobListings />
 </template>
 
-<script>
+<script setup>
 import HeaderItem from "./HeaderItem.vue";
 import JobListings from "./JobListings.vue";
-
-export default {
-  components: { JobListings, HeaderItem },
-};
 </script>
 
 <style scoped>

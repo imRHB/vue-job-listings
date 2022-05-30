@@ -15,21 +15,21 @@
   </div>
 </template>
 
-<script >
-export default {
-  props: {
-    tags: Array,
-  },
+<script setup>
+import { defineEmits, defineProps } from "vue";
 
-  methods: {
-    filter: function (tag) {
-      this.$emit("clicked", tag);
-    },
+const emit = defineEmits(["clicked"]);
 
-    clear: function () {
-      this.$emit("clicked", "clearTags");
-    },
-  },
+defineProps({
+  tags: Array,
+});
+
+const filter = (tag) => {
+  emit("clicked", tag);
+};
+
+const clear = () => {
+  emit("clicked", "clearTags");
 };
 </script>
 

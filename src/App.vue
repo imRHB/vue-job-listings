@@ -2,15 +2,8 @@
   <home-page />
 </template>
 
-<script>
+<script setup>
 import HomePage from "./components/HomePage.vue";
-
-export default {
-  name: "App",
-  components: {
-    HomePage,
-  },
-};
 </script>
 
 <style>

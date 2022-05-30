@@ -77,19 +77,17 @@
   </div>
 </template>
 
-<script>
-export default {
-  components: {},
+<script setup>
+import { defineEmits, defineProps } from "vue";
 
-  props: {
-    job: Object,
-  },
+const emit = defineEmits(["clicked"]);
 
-  methods: {
-    filter: function (tag) {
-      this.$emit("clicked", tag);
-    },
-  },
+defineProps({
+  job: Object,
+});
+
+const filter = (tag) => {
+  emit("clicked", tag);
 };
 </script>
 

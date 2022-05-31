@@ -1,25 +1,24 @@
 <template>
   <div>
     <div class="container">
-      <JobFilterCard :tags="tags" @clicked="onClickTag" />
+      <JobFilterCard :tags="selectedTags" @clicked="onDeselectTag" />
       <JobItem
-        v-for="job in jobs"
+        v-for="job in filteredJobs"
         :key="job.id"
         :job="job"
-        @clicked="onClickJob"
+        @clicked="onSelectTag"
       />
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import JobFilterCard from "./JobFilterCard.vue";
 import JobItem from "./JobItem.vue";
 
-const tags = ref([]);
-const jobs = ref([]);
-const jsonData = ref([
+const selectedTags = ref([]);
+const jobs = ref([
   {
     id: 1,
     company: "Photosnap",
@@ -172,49 +171,102 @@ const jsonData = ref([
   },
 ]);
 
-const updateJobs = (jobs, tags) => {
-  let newjobs = [];
+// const filteredJobs = ref([]);
 
-  if (tags.length === 0) {
-    return jobs;
+// const updateJobs = () => {
+//   console.log("updateJobs called");
+//   if (selectedTags.value.length === 0) {
+//     filteredJobs.value = jobs.value;
+//     return;
+//   }
+
+//   filteredJobs.value = jobs.value.filter((job) => {
+//     let jobTagArray = [job.role, job.level, ...job.languages, ...job.tools];
+
+//     let isSelected = false;
+//     for (let i = 0; i < jobTagArray.length; i++) {
+//       if (selectedTags.value.includes(jobTagArray[i])) {
+//         isSelected = true;
+//         break;
+//       }
+//     }
+//     return isSelected;
+//   });
+
+//   console.log(filteredJobs.value);
+// };
+
+// watchEffect(selectedTags, updateJobs);
+// updateJobs();
+
+const filteredJobs = computed(() => {
+  selectedTags.value;
+  jobs.value;
+
+  if (selectedTags.value.length === 0) {
+    return jobs.value;
   }
 
-  jobs.forEach((job) => {
-    let jobTags = [job.role, job.level, ...job.languages, ...job.tools];
-    let allTag = true;
+  return jobs.value.filter((job) => {
+    console.log(job);
+    let jobTagArray = [job.role, job.level, ...job.languages, ...job.tools];
 
-    for (let i = 0; i < tags.length; i++) {
-      if (!jobTags.includes(tags[i])) {
-        allTag = false;
+    let isSelected = true;
+
+    for (let i = 0; i < selectedTags.value.length; i++) {
+      if (!jobTagArray.includes(selectedTags.value[i])) {
+        isSelected = false;
       }
     }
 
-    if (allTag) {
-      newjobs.push(job);
-    }
+    console.log(isSelected);
+    return isSelected;
   });
+});
 
-  return newjobs;
-};
+// const updateJobs = (jobs, tags) => {
+//   let newjobs = [];
 
-const onClickJob = (value) => {
-  if (!tags.value.includes(value)) {
-    tags.value.push(value);
-    jobs.value = updateJobs(jsonData.value, tags.value);
+//   if (tags.length === 0) {
+//     return jobs;
+//   }
+
+//   jobs.forEach((job) => {
+//     let jobTags = [job.role, job.level, ...job.languages, ...job.tools];
+//     let allTag = true;
+
+//     for (let i = 0; i < tags.length; i++) {
+//       if (!jobTags.includes(tags[i])) {
+//         allTag = false;
+//       }
+//     }
+
+//     if (allTag) {
+//       newjobs.push(job);
+//     }
+//   });
+
+//   return newjobs;
+// };
+
+const onSelectTag = (val) => {
+  if (!selectedTags.value.includes(val)) {
+    selectedTags.value.push(val);
+    // jobs.value = updateJobs(jsonData.value, tags.value);
   }
 };
 
-const onClickTag = (value) => {
-  if (value == "clearTags") {
-    tags.value = [];
+const onDeselectTag = (val) => {
+  if (val === "clearTags") {
+    selectedTags.value = [];
   } else {
-    tags.value = tags.value.filter(function (item) {
-      return item !== value;
+    selectedTags.value = selectedTags.value.filter(function (item) {
+      return item !== val;
     });
   }
 };
 
-jobs.value = updateJobs(jsonData.value, tags.value);
+// jobs.value = updateJobs(jsonData.value, tags.value);
 </script>
 
 <style scoped>
